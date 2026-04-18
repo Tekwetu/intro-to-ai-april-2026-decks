@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Comfortable Using AI — Tekwetu · March 2026</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+
+  <style>
+    /* ─── Design Tokens ─────────────────────────────────────────── */
+    :root {
+      --font:            'Inter', sans-serif;
+
+      --bg:              #1a1a2e;
+      --bg-alt:          #16213e;
+      --surface:         #0f3460;
+
+      --gold:            #CC9933;
+      --gold-dim:        rgba(204,153,51,0.18);
+      --gold-rule:       rgba(204,153,51,0.4);
+      --green:           #50C878;
+      --green-dim:       rgba(80,200,120,0.15);
+      --purple:          #9B59B6;
+      --purple-dim:      rgba(155,89,182,0.15);
+
+      --text:            #f0f0f0;
+      --muted:           #a0a0b8;
+      --white:           #ffffff;
+
+      --r-xs:  4px;
+      --r-sm:  8px;
+      --r-md:  12px;
+    }
+
+    /* ─── Reveal Overrides ──────────────────────────────────────── */
+    .reveal {
+      font-family: var(--font);
+      font-size: 18px;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+    .reveal .slides { text-align: left; }
+    .reveal .progress { color: var(--gold); }
+    .reveal .controls { color: var(--gold); }
+    .reveal .slide-number {
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-family: var(--font);
+      right: 1rem;
+      bottom: 1rem;
+    }
+
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5 {
+      font-family: var(--font);
+      text-transform: none;
+      letter-spacing: -0.01em;
+      text-shadow: none;
+      margin: 0; padding: 0;
+      line-height: 1.15;
+    }
+    .reveal p, .reveal li { margin: 0; padding: 0; }
+    .reveal ul, .reveal ol { margin: 0; padding: 0; list-style: none; }
+    .reveal a { color: var(--gold); }
+    .reveal blockquote {
+      background: transparent;
+      box-shadow: none;
+      margin: 0; padding: 0;
+      border: none;
+      width: 100%;
+    }
+
+    /* ─── Shared Utilities ──────────────────────────────────────── */
+    .rule {
+      width: 56px; height: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+      margin-bottom: 1.4rem;
+    }
+    .rule-purple { background: var(--purple); }
+    .rule-green  { background: var(--green); }
+
+    .pill {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: 50px;
+      margin-bottom: 0.8rem;
+    }
+    .pill-gold   { background: var(--gold-dim);   color: var(--gold); }
+    .pill-purple { background: var(--purple-dim); color: var(--purple); }
+    .pill-green  { background: var(--green-dim);  color: var(--green); }
+
+    .card {
+      background: var(--bg-alt);
+      border-radius: var(--r-md);
+      padding: 1.4rem 1.6rem;
+    }
+    .card-gold   { border-top: 3px solid var(--gold); }
+    .card-purple { border-top: 3px solid var(--purple); }
+    .card-green  { border-top: 3px solid var(--green); }
+
+    /* ─── Logo SVG ──────────────────────────────────────────────── */
+    .logo { display: inline-block; }
+
+    /* ─── Slide: Title ──────────────────────────────────────────── */
+    .s-title {
+      height: 720px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 5rem;
+      box-sizing: border-box;
+    }
+    .s-title .logo { margin-bottom: 1.4rem; }
+    .s-title .title-rule {
+      width: 100px; height: 4px;
+      background: var(--gold);
+      border-radius: 2px;
+      margin: 0.6rem auto 1.6rem;
+    }
+    .s-title h1 {
+      font-size: 3.2rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1.1;
+      margin-bottom: 0.8rem;
+    }
+    .s-title .subtitle {
+      font-size: 1.4rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .s-title .byline {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ─── Slide: Divider ────────────────────────────────────────── */
+    .s-divider {
+      height: 720px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    .s-divider .ghost-num {
+      position: absolute;
+      font-size: 20rem;
+      font-weight: 900;
+      color: white;
+      opacity: 0.035;
+      line-height: 1;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      user-select: none;
+    }
+    .s-divider .inner {
+      position: relative;
+      z-index: 1;
+      padding-top: 1.6rem;
+    }
+    .s-divider .session-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+    .s-divider h1 {
+      font-size: 3.4rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 0.8rem;
+    }
+    .s-divider .sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+    .s-divider .inner.gold  { border-top: 6px solid var(--gold);   }
+    .s-divider .inner.purple{ border-top: 6px solid var(--purple); }
+    .s-divider .inner.green { border-top: 6px solid var(--green);  }
+    .s-divider h1.gold   { color: var(--gold); }
+    .s-divider h1.purple { color: var(--purple); }
+    .s-divider h1.green  { color: var(--green); }
+
+    /* ─── Slide: Sub-header (Part header) ───────────────────────── */
+    .s-sub {
+      height: 720px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 5rem;
+      box-sizing: border-box;
+    }
+    .s-sub .inner { max-width: 700px; }
+    .s-sub .part-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+    .s-sub h1 {
+      font-size: 2.6rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    /* ─── Slide: Key Message ────────────────────────────────────── */
+    .s-quote {
+      height: 720px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 5rem;
+      box-sizing: border-box;
+    }
+    .s-quote .inner { max-width: 820px; }
+    .s-quote blockquote {
+      font-size: 2.1rem;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--gold);
+      line-height: 1.3;
+      margin-bottom: 1.2rem;
+    }
+    .s-quote .attribution {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ─── Slide: Content (standard) ────────────────────────────── */
+    .s-content {
+      height: 720px;
+      display: flex;
+      flex-direction: column;
+      padding: 2.2rem 3rem 2rem;
+      box-sizing: border-box;
+    }
+    .s-content h1 {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .s-content h1.purple { color: var(--purple); }
+    .s-content h1.green  { color: var(--green); }
+    .s-content .body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+    /* Bullet list */
+    .blist { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .blist li {
+      font-size: 1.15rem;
+      color: var(--text);
+      padding-left: 1.2rem;
+      border-left: 2px solid var(--gold);
+      line-height: 1.5;
+    }
+    .blist li.purple-b { border-left-color: var(--purple); }
+    .blist li.green-b  { border-left-color: var(--green); }
+    .blist li strong { color: var(--gold); }
+    .blist li strong.purple { color: var(--purple); }
+    .blist li strong.green  { color: var(--green); }
+
+    /* Numbered list */
+    .nlist { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; counter-reset: ncount; }
+    .nlist li {
+      font-size: 1.1rem;
+      color: var(--text);
+      padding-left: 3rem;
+      line-height: 1.5;
+      position: relative;
+      counter-increment: ncount;
+    }
+    .nlist li::before {
+      content: counter(ncount);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2rem;
+      height: 2rem;
+      background: var(--gold-dim);
+      color: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .nlist.purple li::before { background: var(--purple-dim); color: var(--purple); }
+    .nlist.green  li::before { background: var(--green-dim);  color: var(--green); }
+    .nlist li strong { color: var(--gold); }
+    .nlist.purple li strong { color: var(--purple); }
+    .nlist.green  li strong { color: var(--green); }
+
+    /* Checklist */
+    .clist { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+    .clist li {
+      font-size: 1.1rem;
+      color: var(--text);
+      padding-left: 2.4rem;
+      line-height: 1.5;
+      position: relative;
+    }
+    .clist li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.15em;
+      width: 1.1rem; height: 1.1rem;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+    }
+
+    /* ─── Slide: Three-column cards ─────────────────────────────── */
+    .three-col { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; flex: 1; }
+    .three-col .card { display: flex; flex-direction: column; }
+    .three-col .card .num {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--gold);
+      opacity: 0.2;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .three-col .card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .three-col .card p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 0.8rem;
+    }
+    .three-col .card ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .three-col .card ul li {
+      font-size: 0.85rem;
+      color: var(--text);
+      padding-left: 0.8rem;
+      border-left: 2px solid var(--gold);
+      line-height: 1.45;
+    }
+    .three-col .card ul li.p { border-left-color: var(--purple); }
+
+    /* ─── Slide: Two-column ─────────────────────────────────────── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; flex: 1; }
+    .two-col .col { display: flex; flex-direction: column; }
+    .two-col .col h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; }
+    .two-col .col h2.gold   { color: var(--gold); }
+    .two-col .col h2.purple { color: var(--purple); }
+    .two-col .col h2.green  { color: var(--green); }
+
+    /* ─── Slide: Table ──────────────────────────────────────────── */
+    .s-table {
+      height: 720px;
+      display: flex;
+      flex-direction: column;
+      padding: 2.2rem 3rem 2rem;
+      box-sizing: border-box;
+    }
+    .s-table h1 {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .tbl-wrap { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    table.tbl {
+      width: 100%;
+      border-collapse: collapse;
+      flex: 1;
+    }
+    table.tbl thead tr { background: var(--surface); }
+    table.tbl th {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.7rem 1rem;
+      text-align: left;
+      border-bottom: 2px solid var(--gold-rule);
+    }
+    table.tbl th.purple { color: var(--purple); border-bottom-color: var(--purple); }
+    table.tbl td {
+      font-size: 0.9rem;
+      color: var(--text);
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    table.tbl td.term {
+      font-weight: 700;
+      color: var(--gold);
+      white-space: nowrap;
+      width: 16%;
+    }
+    table.tbl td.num-cell {
+      font-weight: 700;
+      color: var(--purple);
+      white-space: nowrap;
+      width: 4%;
+    }
+    table.tbl td.focus-cell {
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+      width: 18%;
+    }
+    table.tbl td.tool-cell {
+      font-weight: 700;
+      color: var(--gold);
+      white-space: nowrap;
+      width: 20%;
+    }
+    table.tbl td.free-cell { color: var(--green); font-weight: 600; }
+    table.tbl td em { color: var(--muted); font-style: italic; font-size: 0.82rem; }
+    table.tbl tbody tr:nth-child(odd)  { background: var(--bg); }
+    table.tbl tbody tr:nth-child(even) { background: var(--bg-alt); }
+
+    /* ─── Slide: Code/Prompt block ──────────────────────────────── */
+    .prompt-block {
+      background: var(--surface);
+      border-left: 4px solid var(--gold);
+      border-radius: var(--r-sm);
+      padding: 1.4rem 1.6rem;
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      color: var(--gold);
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+    .prompt-hint {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.8rem;
+      font-style: italic;
+    }
+    .prompt-block.purple-code {
+      border-left-color: var(--purple);
+      color: #d4a8e8;
+    }
+
+    /* ─── Slide: Milestone ──────────────────────────────────────── */
+    .s-milestone {
+      height: 720px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 5rem;
+      box-sizing: border-box;
+    }
+    .s-milestone .check-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+    .s-milestone h1 {
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+    .s-milestone .sub {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 1.6rem;
+    }
+    .s-milestone .recap { display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-start; }
+    .s-milestone .recap-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      font-size: 1rem;
+      color: var(--text);
+    }
+    .s-milestone .recap-item::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ─── Slide: Certificate ────────────────────────────────────── */
+    .s-cert {
+      height: 720px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 5rem;
+      box-sizing: border-box;
+      background: radial-gradient(ellipse at center, rgba(80,200,120,0.08) 0%, transparent 70%);
+    }
+    .s-cert .logo { margin-bottom: 1.6rem; }
+    .s-cert h1 {
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1.15;
+      margin-bottom: 0.8rem;
+    }
+    .s-cert .cert-label {
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .s-cert .cert-name {
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    /* ─── Slide: Activity (purple) ──────────────────────────────── */
+    .s-activity {
+      height: 720px;
+      display: flex;
+      flex-direction: column;
+      padding: 2.2rem 3rem 2rem;
+      box-sizing: border-box;
+    }
+    .s-activity h1 {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--purple);
+      margin-bottom: 0.4rem;
+    }
+    .s-activity .body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+    /* Session overview cards */
+    .session-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; margin-top: 0.4rem; }
+    .session-card {
+      background: var(--bg-alt);
+      border-radius: var(--r-md);
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .session-card .sess-num {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .session-card .sess-title {
+      font-size: 1.2rem;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+    .session-card .sess-time {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-top: auto;
+    }
+    .session-card.gold   { border-top: 4px solid var(--gold);   }
+    .session-card.purple { border-top: 4px solid var(--purple); }
+    .session-card.green  { border-top: 4px solid var(--green);  }
+    .session-card.gold   .sess-title { color: var(--gold); }
+    .session-card.purple .sess-title { color: var(--purple); }
+    .session-card.green  .sess-title { color: var(--green); }
+
+    /* Before/After comparison */
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; flex: 1; }
+    .compare .col-before, .compare .col-after {
+      background: var(--bg-alt);
+      border-radius: var(--r-md);
+      padding: 1.2rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .compare .col-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .compare .col-before .col-label { color: var(--muted); }
+    .compare .col-after  .col-label { color: var(--green); }
+    .compare .prompt-text {
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      flex: 1;
+    }
+    .compare .col-before .prompt-text { color: var(--muted); }
+    .compare .col-after  .prompt-text { color: var(--text); }
+    .compare .verdict {
+      margin-top: 1rem;
+      font-size: 0.82rem;
+      font-style: italic;
+      color: var(--muted);
+    }
+    .compare .col-after .verdict { color: var(--green); }
+
+    /* Rescue prompts */
+    .rescue { display: flex; flex-direction: column; gap: 1rem; }
+    .rescue-item {
+      background: var(--surface);
+      border-left: 3px solid var(--purple);
+      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+      padding: 0.9rem 1.2rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.96rem;
+      color: #d4a8e8;
+      line-height: 1.5;
+    }
+
+    /* Timer transition slide */
+    .s-timer {
+      height: 720px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 5rem;
+      box-sizing: border-box;
+      background: var(--purple-dim);
+    }
+    .s-timer .t-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+    .s-timer h1 {
+      font-size: 5rem;
+      font-weight: 900;
+      color: var(--purple);
+      line-height: 1;
+      margin-bottom: 1.2rem;
+    }
+    .s-timer .check-items { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+    .s-timer .check-items li {
+      font-size: 1rem;
+      color: var(--text);
+      padding-left: 1.6rem;
+      position: relative;
+    }
+    .s-timer .check-items li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--purple);
+    }
+
+    /* What AI is good at — two-col special */
+    .good-at { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; flex: 1; }
+    .good-at .col { border-radius: var(--r-md); padding: 1.4rem 1.6rem; display: flex; flex-direction: column; }
+    .good-at .col.ai-col { background: var(--gold-dim); }
+    .good-at .col.you-col { background: var(--green-dim); }
+    .good-at .col-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .good-at .col.ai-col  .col-label { color: var(--gold); }
+    .good-at .col.you-col .col-label { color: var(--green); }
+    .good-at .items { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .good-at .items li {
+      font-size: 1rem;
+      color: var(--text);
+      padding-left: 1.2rem;
+      line-height: 1.45;
+      border-left: 2px solid;
+    }
+    .good-at .col.ai-col  .items li { border-color: var(--gold); }
+    .good-at .col.you-col .items li { border-color: var(--green); }
+
+    /* Where to go next cards */
+    .next-paths { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; flex: 1; }
+    .next-card {
+      background: var(--bg-alt);
+      border-radius: var(--r-md);
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .next-card .icon { font-size: 1.8rem; margin-bottom: 0.4rem; }
+    .next-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+    .next-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
+    .next-card.gold   { border-top: 3px solid var(--gold);   }
+    .next-card.purple { border-top: 3px solid var(--purple); }
+    .next-card.green  { border-top: 3px solid var(--green);  }
+
+    /* Polish checklist two-col */
+    .polish-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; flex: 1; align-content: start; }
+    .polish-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: var(--bg-alt);
+      border-radius: var(--r-sm);
+      padding: 0.9rem 1rem;
+    }
+    .polish-item .check-box {
+      width: 1.2rem; height: 1.2rem;
+      border: 2px solid var(--gold);
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .polish-item span { font-size: 0.92rem; color: var(--text); line-height: 1.45; }
+
+    /* Demo time presenter card */
+    .presenter-prompts { display: flex; flex-direction: column; gap: 1rem; }
+    .presenter-item {
+      background: var(--surface);
+      border-left: 4px solid var(--purple);
+      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+      padding: 1rem 1.4rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .presenter-item .p-num {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--purple);
+      opacity: 0.5;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .presenter-item .p-text {
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .presenter-item .p-text em { color: #d4a8e8; font-style: italic; }
+
+    /* 4-refinements list (activity) */
+    .refine-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .refine-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: var(--bg-alt);
+      border-radius: var(--r-sm);
+      padding: 0.9rem 1.2rem;
+    }
+    .refine-num {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--purple);
+      opacity: 0.35;
+      flex-shrink: 0;
+      line-height: 1;
+      width: 2rem;
+      text-align: right;
+    }
+    .refine-text { font-size: 0.98rem; color: var(--text); line-height: 1.55; }
+    .refine-text code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      color: #d4a8e8;
+      background: var(--surface);
+      padding: 0.1em 0.3em;
+      border-radius: 3px;
+    }
+
+    /* Ground rules */
+    .ground-rules { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+    .rule-item {
+      background: var(--bg-alt);
+      border-radius: var(--r-sm);
+      padding: 1rem 1.2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+    .rule-item .r-num {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--gold);
+      opacity: 0.25;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .rule-item .r-text { font-size: 0.95rem; color: var(--text); line-height: 1.5; }
+    .rule-item .r-text strong { color: var(--gold); }
+
+    /* Pair work */
+    .pair-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .pair-role {
+      background: var(--bg-alt);
+      border-top: 3px solid var(--purple);
+      border-radius: var(--r-md);
+      padding: 1.2rem 1.4rem;
+    }
+    .pair-role h3 { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); margin-bottom: 0.8rem; }
+    .pair-role ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .pair-role ul li { font-size: 0.92rem; color: var(--text); padding-left: 0.8rem; border-left: 2px solid var(--purple); line-height: 1.45; }
+    .pair-swap {
+      background: var(--purple-dim);
+      border-radius: var(--r-sm);
+      padding: 0.8rem 1.2rem;
+      font-size: 0.9rem;
+      color: var(--purple);
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* Gallery voting */
+    .gallery-votes { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; }
+    .vote-card {
+      background: var(--bg-alt);
+      border-radius: var(--r-md);
+      padding: 1.2rem;
+      text-align: center;
+    }
+    .vote-card .icon { font-size: 2rem; margin-bottom: 0.6rem; }
+    .vote-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .vote-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+    /* ─── Global logo overlay (bottom-right on all non-title slides) ── */
+    .logo-overlay {
+      position: absolute;
+      bottom: 3.2rem;
+      right: 1.6rem;
+      z-index: 20;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .logo-overlay.hidden { opacity: 0; }
+
+    /* Print */
+    @media print {
+      .reveal .slides { display: block; }
+      .reveal section { page-break-after: always; height: 720px; }
+      .reveal .progress, .reveal .controls, .reveal .slide-number { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 1 — Title
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e" data-hide-logo="true">
+<div class="s-title">
+  <div class="logo">
+    <svg width="80" height="56" viewBox="0 0 190 130" xmlns="http://www.w3.org/2000/svg" aria-label="Tekwetu">
+      <circle cx="95" cy="65" r="60" fill="#CC9933" opacity="0.9"/>
+      <circle cx="125" cy="65" r="60" fill="#50C878" opacity="0.6"/>
+      <circle cx="65" cy="65" r="60" fill="#9B59B6" opacity="0.6"/>
+      <path d="M60 55 L60 95 M130 55 L130 95" stroke="white" stroke-width="6.5" fill="none"/>
+      <path d="M95 30 L95 100" stroke="white" stroke-width="13" fill="none"/>
+      <path d="M60 40 Q95 30 130 40" stroke="white" stroke-width="13" fill="none"/>
+      <path d="M60 65 L130 65" stroke="white" stroke-width="6.5" fill="none"/>
+    </svg>
+  </div>
+  <div class="title-rule"></div>
+  <h1>Getting Comfortable<br>Using AI</h1>
+  <p class="subtitle">A 1-Day Hands-On Workshop</p>
+  <p class="byline">Tekwetu &nbsp;·&nbsp; March 2026</p>
+</div>
+<aside class="notes">
+Welcome the room warmly. Ask for a show of hands: "Who has used AI — ChatGPT, Claude, anything — in the last week?" This is a warm-up, not a quiz. Then: "By end of today, everyone in this room will have a live website on the internet that they built with AI. Let's go."
+
+Invite 2–3 students to share what they've already heard about AI — good or bad. Acknowledge both. This is a judgment-free room.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 2 — Tekwetu Mission
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-quote">
+  <div class="inner">
+    <h2 style="font-size:1.8rem; font-weight:900; color:var(--text); margin-bottom:2rem;">Getting to know us...</h2>
+    <blockquote style="color:var(--purple); font-size:1.8rem;">"We believe technology should be accessible to everyone. Our mission is to bridge the gap between everyday people and the powerful tools that shape our future."</blockquote>
+    <p style="margin-top:1.4rem; font-size:1rem; font-style:italic; color:var(--green);">— Tekwetu Mission</p>
+  </div>
+</div>
+<aside class="notes">
+Tekwetu was born out a desire to make tech (AI, blockchain, etc.) approachable to everyone. We are starting with AI because that's what everyone is talking about nowadays. The vision is to teach tech ideas to people in a way they can understand. We also want to make these courses freely available so that anyone can take it and remix it to teach others. In the AI space we have started by teaching Intro to AI, but will follow up with courses such as App Development with AI, Go Deeper with Creative AI Tools. Perhaps some of you here may be inspired to lead those courses.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 3 — How Today Works
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-content">
+  <h1>How Today Works</h1>
+  <div class="rule"></div>
+  <div class="body">
+    <div class="session-cards">
+      <div class="session-card gold">
+        <span class="sess-num">Session 1 · 2 hours</span>
+        <span class="sess-title">"I Built a Website Today"</span>
+        <span class="sess-time">Foundations + First Build</span>
+      </div>
+      <div class="session-card purple">
+        <span class="sess-num">Session 2 · 2 hours</span>
+        <span class="sess-title">"I Made It Mine"</span>
+        <span class="sess-time">Deep Iteration + Audio</span>
+      </div>
+      <div class="session-card green">
+        <span class="sess-num">Session 3 · 1 hour</span>
+        <span class="sess-title">"I Shipped It"</span>
+        <span class="sess-time">Polish + Publish + Present</span>
+      </div>
+    </div>
+  </div>
+</div>
+<aside class="notes">
+Emphasize this is a doing day, not a lecture day. Breaks happen between sessions. Students describe their idea at the start and share a live link at the end.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 3 — Ground Rules
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-content">
+  <h1>Before We Start</h1>
+  <div class="rule"></div>
+  <div class="body">
+    <div class="ground-rules">
+      <div class="rule-item">
+        <span class="r-num">1</span>
+        <span class="r-text"><strong>Mistakes are data.</strong> When something goes wrong, we learn from it — out loud, together.</span>
+      </div>
+      <div class="rule-item">
+        <span class="r-num">2</span>
+        <span class="r-text"><strong>No wrong questions.</strong> If you're confused, someone else is too.</span>
+      </div>
+      <div class="rule-item">
+        <span class="r-num">3</span>
+        <span class="r-text"><strong>Try it, then ask.</strong> Attempt the prompt first, then raise your hand if you're stuck.</span>
+      </div>
+      <div class="rule-item">
+        <span class="r-num">4</span>
+        <span class="r-text"><strong>Stay present.</strong> The best moments today will happen between the prompts — in the conversation, not the screen.</span>
+      </div>
+      <div class="rule-item" style="grid-column: 1 / -1; justify-self: center; max-width: 480px;">
+        <span class="r-num">5</span>
+        <span class="r-text"><strong>We ship something real today.</strong> A live URL with your name on it.</span>
+      </div>
+    </div>
+  </div>
+</div>
+<aside class="notes">
+Keep this slide light and energetic. "Mistakes are data" is the through-line for the whole day — return to it whenever anything goes wrong.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 4 — Session 1 Divider
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-divider">
+  <div class="ghost-num">01</div>
+  <div class="inner gold">
+    <p class="session-label">Session 1 · 2 hours</p>
+    <h1 class="gold">"I Built a Website Today"</h1>
+    <p class="sub">Foundations + First Build</p>
+  </div>
+</div>
+<aside class="notes">
+No narration needed. Let the slide land for a moment. Then: "Session 1 is two hours. When we finish, you will have a real website in a browser. Everything we cover now is scaffolding to get you there."
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 5 — Part 1 Sub-header: AI Foundations
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-sub">
+  <div class="inner">
+    <p class="part-label">Session 1 · Part 1</p>
+    <h1 style="color:var(--gold);">AI Foundations</h1>
+    <p style="font-size:1rem; color:var(--muted); margin-top:0.8rem;">A quick, plain-language orientation to the terms you'll hear all day.</p>
+  </div>
+</div>
+<aside class="notes">
+Transition slide. Move quickly to the glossary. The goal is shared vocabulary — not deep understanding. Deep understanding comes from doing.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 6 — Key Message: Driving the Car
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-quote">
+  <div class="inner">
+    <blockquote>"You don't need to understand how AI works under the hood any more than you need to understand how an engine works to drive a car."</blockquote>
+    <p class="attribution">What matters is knowing how to steer it. That's what today is about.</p>
+  </div>
+</div>
+<aside class="notes">
+Pause here. This is the conceptual anchor for the whole day. Let it breathe — at least 5 seconds of silence after reading it. Then ask: "Who here can drive a car but has no idea what happens under the bonnet?" Most hands go up. "Exactly. Same thing." I'd love to hear from a few of you, what have you heard about AI?
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 7 — The Glossary
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-content">
+  <h1>The Glossary</h1>
+  <div class="rule" style="flex-shrink:0;"></div>
+  <img src="images/course-glossary.svg" alt="AI Glossary" style="max-width:100%; max-height:560px; object-fit:contain; flex-shrink:1;">
+</div>
+<aside class="notes">
+Ask: "Which of these have you heard aboutbefore today?"
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 8 — Part 2 Sub-header: Live Demo
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-sub">
+  <div class="inner">
+    <p class="part-label">Session 1 · Part 2</p>
+    <h1 style="color:var(--gold);">Live Demo</h1>
+  </div>
+</div>
+<aside class="notes">
+Switch to browser now. Keep slides visible on a second monitor if possible. Narrate every click and every choice out loud — you're modelling the thinking process, not just the result.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 9 — Demo Flow
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-content">
+  <h1>The Demo</h1>
+  <div class="rule"></div>
+  <img src="images/demo-session-1.png" alt="Demo — The Flow" style="max-width:100%; max-height:580px; object-fit:contain; flex-shrink:1;">
+</div>
+<aside class="notes">
+Walk through the demo live in the browser while this image is on screen:
+1. Write a one-paragraph brief in Claude: what the site is for, who the audience is, what sections you want
+2. Paste the brief into Google AI Studio — watch a site appear
+3. Critique it openly: "What works? What got weird?" (Hero sections usually strong; copy often generic; images are placeholders)
+4. Make one quick refinement in chat: "Make the hero section bolder and cut the text by half"
+5. Compare the before and after — notice what changed and what didn't
+
+Say out loud what you are noticing at each step. Model the thinking: "I'm looking at the hero and the text feels generic — let me try asking it to be more specific." Keep total demo under 20 minutes. Don't polish the output — the goal is to show the loop, not produce a perfect site.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 10 — Key Message: Iteration
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-quote">
+  <div class="inner">
+    <blockquote>"The first output is never the final output."</blockquote>
+    <p class="attribution">Every great AI result is the product of iteration, not luck. The skill is in the back-and-forth — not the single prompt.</p>
+  </div>
+</div>
+<aside class="notes">
+This is the session's mantra. Return to it whenever students get frustrated with a result. "Remember — first output, not final output." Write it on a whiteboard if you can.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 11 — Part 3 Sub-header: Students Build
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-sub">
+  <div class="inner">
+    <p class="part-label">Session 1 · Part 3</p>
+    <h1 style="color:var(--purple);">Your Turn to Build: Site #1</h1>
+    <span class="pill pill-purple">45 minutes · Work in pairs</span>
+  </div>
+</div>
+<aside class="notes">
+Pair students now. One laptop per pair is fine — reduces anxiety, increases problem-solving. Assign pairs if the room seems hesitant to self-organise.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 12 — Pair Work Instructions
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-activity">
+  <h1>How Pairs Work</h1>
+  <div class="rule rule-purple"></div>
+  <div class="body" style="gap:1.4rem;">
+    <div class="pair-grid">
+      <div class="pair-role">
+        <h3>Person A — Types</h3>
+        <ul>
+          <li>Writes and submits the prompt</li>
+          <li>Makes refinements based on feedback</li>
+          <li>Shares screen so both can see</li>
+        </ul>
+      </div>
+      <div class="pair-role">
+        <h3>Person B — Watches &amp; Critiques</h3>
+        <ul>
+          <li>Notes what landed well</li>
+          <li>Spots one thing to change</li>
+          <li>Suggests the next refinement prompt</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pair-swap">Swap roles at the halfway mark (approx. 22 minutes in)</div>
+  </div>
+</div>
+<aside class="notes">
+Circulate constantly during this block. Listen for "it's not working" — that is your teaching moment. Ask: "What did you want it to do? Let's write that as a prompt." Stalled students often won't raise their hand. Walk the room and check in proactively.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 13 — Starter Prompt Template
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-content">
+  <h1>Your Starter Prompt</h1>
+  <div class="rule rule-purple"></div>
+  <div class="body" style="gap:1rem;">
+    <div class="prompt-block">Create a landing page for [a photographer / writer / consultant /
+nonprofit / community organiser].
+
+Use modern design with bold typography.
+
+Include: hero section, about, work samples with placeholder
+images, and a contact form.
+
+Tone: [professional / warm / bold / friendly].</div>
+    <p class="prompt-hint">Replace the [ brackets ] with your own words. Every choice changes the output.</p>
+  </div>
+</div>
+<aside class="notes">
+Tell students to copy this prompt and fill in the three brackets. Remind them there is no wrong answer for topic — use a real project, a fictional persona, anything. The goal is to generate something, not to get it perfect.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 14 — Debrief Question
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-quote">
+  <div class="inner">
+    <blockquote>"What surprised you? What got weird? What did AI get exactly right?"</blockquote>
+  </div>
+</div>
+<aside class="notes">
+Ask 2–3 pairs to share. Capture their answers — these become teaching material for the pattern recognition segment that follows. Listen for common themes: AI usually nails structure and layout; it usually misses voice, real detail, and anything specific to the person.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 15 — Part 4 Sub-header: Pattern Recognition
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-sub">
+  <div class="inner">
+    <p class="part-label">Session 1 · Part 4</p>
+    <h1 style="color:var(--gold);">Pattern Recognition + The 3 Prompt Levers</h1>
+    <p style="font-size:1rem; color:var(--muted); margin-top:0.8rem;">Drawing on what the room just discovered.</p>
+  </div>
+</div>
+<aside class="notes">
+Bring everyone back together. Ask 2–3 pairs to share one thing they noticed. Use their actual answers to bridge into the levers.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 15 — What AI Gets Right and Wrong
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-content">
+  <h1>What You Just Discovered</h1>
+  <div class="rule"></div>
+  <div class="body">
+    <div class="two-col">
+      <div class="col card card-gold">
+        <h2 class="gold">What AI consistently nails</h2>
+        <ul class="blist" style="margin-top:0.8rem;">
+          <li>Layout, structure, section flow</li>
+          <li>Visual hierarchy</li>
+          <li>Getting something on screen — fast</li>
+          <li>Generating multiple options</li>
+        </ul>
+      </div>
+      <div class="col card" style="border-top:3px solid var(--muted);">
+        <h2 style="color:var(--muted);">What AI consistently misses</h2>
+        <ul class="blist" style="margin-top:0.8rem;">
+          <li style="border-left-color:var(--muted);">Your actual voice</li>
+          <li style="border-left-color:var(--muted);">Specific, real details about your work</li>
+          <li style="border-left-color:var(--muted);">Real content (not generic filler)</li>
+          <li style="border-left-color:var(--muted);">Anything that requires knowing you</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<aside class="notes">
+Ask the room first: "What did AI get right without being told?" then "What did it miss?" Their answers will map exactly to these two columns. This slide validates what they experienced — it's not lecture, it's reflection.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 16 — The 3 Prompt Levers
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-content">
+  <h1>The 3 Prompt Levers</h1>
+  <div class="rule"></div>
+  <div class="body">
+    <div class="three-col">
+      <div class="card card-gold">
+        <div class="num">01</div>
+        <h3>Specificity</h3>
+        <p>Vague prompts get generic results. Specific prompts get useful ones.</p>
+        <ul>
+          <li>"Build a website" → generic</li>
+          <li>"Landing page for a Lagos-based food photographer, bold black and white" → useful</li>
+        </ul>
+      </div>
+      <div class="card card-gold">
+        <div class="num">02</div>
+        <h3>Tone</h3>
+        <p>"Professional" and "warm and conversational" produce completely different sites.</p>
+        <ul>
+          <li>Try: bold, minimal, playful, earthy, authoritative</li>
+          <li>Combine two: "warm but professional"</li>
+        </ul>
+      </div>
+      <div class="card card-gold">
+        <div class="num">03</div>
+        <h3>Structure Requests</h3>
+        <p>You can ask for exactly what you want — AI won't assume.</p>
+        <ul>
+          <li>"3-column grid, no sidebar"</li>
+          <li>"One bold headline only, no subheading"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<aside class="notes">
+After showing all three, ask: "Which lever did you use least during the build?" Most will say Structure — it's the most abstract. Demo live: take the starter prompt and add all three levers to it.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 17 — Before & After Comparison
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-content">
+  <h1>Lever Demo: Before &amp; After</h1>
+  <div class="rule"></div>
+  <div class="body">
+    <div class="compare">
+      <div class="col-before">
+        <div class="col-label">Weak prompt</div>
+        <div class="prompt-text">Make a website.</div>
+        <div class="verdict">Generic. AI has nothing to work with.</div>
+      </div>
+      <div class="col-after">
+        <div class="col-label">Strong prompt</div>
+        <div class="prompt-text">Build a one-page portfolio for a Lagos-based photographer. Use bold black and white with a gold accent. Include: hero image slot, 6-photo grid, bio section, WhatsApp contact link. Tone: editorial and confident.</div>
+        <div class="verdict">Specific · Toned · Structured → useful output.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<aside class="notes">
+Ask the room: "What changed?" Accept answers before explaining. They'll identify specificity, tone, and structure on their own. That's the point — they already know this, they just need the vocabulary.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 18 — Session 1 Milestone
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-milestone">
+  <div class="check-icon">✅</div>
+  <h1>Session 1 Complete</h1>
+  <p class="sub" style="margin-bottom:1.6rem;">You just built your first AI-generated website.</p>
+  <div class="recap">
+    <div class="recap-item">You know the vocabulary — AI, GenAI, Prompt, Vibe Coding</div>
+    <div class="recap-item">You ran the demo loop — prompt → output → iterate</div>
+    <div class="recap-item">You know the 3 levers — specificity, tone, structure</div>
+  </div>
+  <p style="font-size:0.85rem; color:var(--muted); margin-top:1.8rem;">15-minute break · Session 2 starts shortly</p>
+</div>
+<aside class="notes">
+Celebrate briefly. If there's time, pick one pair to share their screen for 60 seconds — show the room what's possible. Then break.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 19 — Session 2 Divider
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-divider">
+  <div class="ghost-num">02</div>
+  <div class="inner purple">
+    <p class="session-label">Session 2 · 2 hours</p>
+    <h1 class="purple">"I Made It Mine"</h1>
+    <p class="sub">Deep Iteration · Real Content · Audio</p>
+  </div>
+</div>
+<aside class="notes">
+Energy check. Ask the room their energy level 1–5 with fingers. Acknowledge the number. "We're going deeper in Session 2 — this is where it gets personal."
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 20 — Part 1 Sub-header: Before/After Demo
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-sub">
+  <div class="inner">
+    <p class="part-label">Session 2 · Part 1</p>
+    <h1 style="color:var(--purple);">Before/After Demo</h1>
+  </div>
+</div>
+<aside class="notes">
+Open the site from Session 1. Students should be watching — not building yet. You're modelling the creative director mindset.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 22 — Key Message: Creative Director
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-quote">
+  <div class="inner">
+    <blockquote>"You are the creative director. AI is the production team."</blockquote>
+    <p class="attribution">Tell it what you want — clearly, specifically, with tone. It can produce more than just visuals: text, voice, music, images, code. Your job is to direct.</p>
+  </div>
+</div>
+<aside class="notes">
+Walk through these 4 refinements live — show the prompt you type, then show the result each time:
+1. "Make the hero section full-width with a single bold headline. Remove the subtitle."
+2. "Change the colour palette to deep navy and warm white. No gradients."
+3. "Rewrite the about section in first person. Make it sound like a real human, not a brochure."
+4. Use Gemini TTS to generate a short spoken intro → play it for the room.
+  
+The audio moment (step 4) usually surprises the room. Let it land: "You just recorded a voice intro. Without a studio." Keep total time under 20 minutes.
+  
+This reframe shifts students from "user of a tool" to "director of a team." Ask: "What would you tell a production team if you were the creative director of your site right now?" Let a few students answer.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 23 — Part 2 Sub-header: Deep Iteration Workshop
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-sub">
+  <div class="inner">
+    <p class="part-label">Session 2 · Part 2</p>
+    <h1 style="color:var(--purple);">Deep Iteration Workshop</h1>
+    <span class="pill pill-purple">90 minutes · Individual work</span>
+    <p style="font-size:1rem; color:var(--muted); margin-top:0.8rem;">Work through the 7-Refinement Card on your real project. We start with Cloudinary setup.</p>
+  </div>
+</div>
+<aside class="notes">
+This is the longest block. Students will refine their own site through 7 structured checkpoints. Start with Cloudinary — it's quick and unlocks the image and audio steps.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 24 — Cloudinary Setup
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-content">
+  <h1>Cloudinary Setup</h1>
+  <div class="rule rule-purple"></div>
+  <div class="body">
+    <ol class="nlist purple">
+      <li>Go to <strong>cloudinary.com</strong> — create a free account</li>
+      <li>Click <strong>Upload</strong> → select any image from your laptop</li>
+      <li>Once uploaded, click the image → <strong>Copy URL</strong></li>
+      <li>That URL is what you paste into your AI prompt: <em>"Use this image: [URL]"</em></li>
+      <li>Same process for audio files (voice intro, music track) — upload, copy URL, paste</li>
+    </ol>
+    <p style="margin-top:1.2rem; font-size:0.9rem; color:var(--muted); background:var(--bg-alt); border-radius:var(--r-sm); padding:0.8rem 1rem;">
+      Think of it as your <strong style="color:var(--purple);">creative storage locker</strong> — everything you make today lives there so your site can find it from anywhere.
+    </p>
+  </div>
+</div>
+<aside class="notes">
+Anticipate login issues. Have a shared backup Cloudinary account pre-loaded on a sticky note at each table. Walk through this step slowly — once students understand the upload → copy URL → paste flow, the rest of the image and audio steps become easy.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 25 — The 7-Refinement Card
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-table">
+  <h1>The 7-Refinement Card</h1>
+  <div class="rule rule-purple"></div>
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th class="purple">#</th>
+          <th class="purple">Focus</th>
+          <th class="purple">Example prompt to try</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num-cell">1</td>
+          <td class="focus-cell">Layout &amp; Structure</td>
+          <td><em>"Move the contact form to its own section at the bottom. Add a pricing section between work and contact."</em></td>
+        </tr>
+        <tr>
+          <td class="num-cell">2</td>
+          <td class="focus-cell">Visual &amp; Tone</td>
+          <td><em>"Switch to a warm earthy palette — terracotta, cream, and dark brown. Make it feel handmade and personal."</em></td>
+        </tr>
+        <tr>
+          <td class="num-cell">3</td>
+          <td class="focus-cell">Copy &amp; Voice</td>
+          <td><em>"Rewrite the hero headline to feel more direct and confident. Give me 3 options."</em></td>
+        </tr>
+        <tr>
+          <td class="num-cell">4</td>
+          <td class="focus-cell">Add a Missing Piece</td>
+          <td><em>"Add a FAQ section with 4 questions relevant to [my work]."</em></td>
+        </tr>
+        <tr>
+          <td class="num-cell">5</td>
+          <td class="focus-cell">Images</td>
+          <td>Use Gemini to generate 2–3 custom images → upload to Cloudinary → paste URL into the site</td>
+        </tr>
+        <tr>
+          <td class="num-cell">6</td>
+          <td class="focus-cell">Voice Narration</td>
+          <td>Use Gemini TTS to record a 20–30 second spoken intro → upload to Cloudinary → embed on the site</td>
+        </tr>
+        <tr>
+          <td class="num-cell">7</td>
+          <td class="focus-cell">Background Music</td>
+          <td>Use Gemini to generate a short ambient music track → upload to Cloudinary → embed on the site</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<aside class="notes">
+Students work through these in any order. They do not have to complete all 7. Three solid refinements produce a dramatically better site than a rushed seven.
+
+Facilitator cues:
+• Stuck on #1 after 15 min → skip to #3 (copy is faster)
+• Finished all 7 early → bonus: generate a second music track in a different mood and compare
+• Site "broke" → treat as a teaching moment; ask AI to fix it in chat
+• Audio refinements (#6 and #7) are the most delightful — use them as a reward for anxious students
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 26 — Rescue Prompts (leave up during workshop)
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-content">
+  <h1>Stuck? Try One of These</h1>
+  <div class="rule rule-purple"></div>
+  <div class="body" style="gap:1rem; justify-content:center;">
+    <p style="font-size:0.9rem; color:var(--muted); margin-bottom:0.4rem;">Paste any of these into your AI chat to get unstuck:</p>
+    <div class="rescue">
+      <div class="rescue-item">"Explain what this code does in plain English."</div>
+      <div class="rescue-item">"What would make this page look more professional? Give me 3 specific suggestions."</div>
+      <div class="rescue-item">"Give me 3 alternative versions of this headline. Keep them short and direct."</div>
+      <div class="rescue-item">"Something looks broken. Here's what I see: [describe it]. What could be causing this and how do I fix it?"</div>
+    </div>
+  </div>
+</div>
+<aside class="notes">
+Leave this slide on the projector during the workshop block. It reduces the number of hands raised and builds students' confidence in self-directing.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 27 — 30 Minutes Left
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-timer">
+  <p class="t-label">Workshop — time check</p>
+  <h1>30 min left</h1>
+  <ul class="check-items">
+    <li>At least 3 refinements done?</li>
+    <li>Site loads in your browser?</li>
+    <li>One thing you're proud of?</li>
+  </ul>
+</div>
+<aside class="notes">
+Verbal announcement only — don't linger on this slide. Keep circulating. If students are still on refinement 1 or 2, redirect them to copy (refinement 3) as it's faster and often produces the biggest visible improvement.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 28 — Part 3 Sub-header: Lightning Gallery
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-sub">
+  <div class="inner">
+    <p class="part-label">Session 2 · Part 3</p>
+    <h1 style="color:var(--purple);">Lightning Gallery</h1>
+    <span class="pill pill-purple">30 minutes</span>
+    <p style="font-size:1rem; color:var(--muted); margin-top:0.8rem;">Scan to open the shared doc — paste your project URL.</p>
+    <img src="images/shared_doc_qr_code.png" alt="Shared doc QR code" style="width:180px; height:180px; margin-top:1.2rem; border-radius:8px; background:white; padding:8px;">
+  </div>
+</div>
+<aside class="notes">
+Have students open their site on their own screen. Do a standing gallery walk if space permits — more energising than sitting.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 29 — Gallery Rules & Voting
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-content">
+  <h1>Gallery Showcase</h1>
+  <div class="rule rule-purple"></div>
+  <div class="body">
+    <ul class="blist purple-b">
+      <li class="purple-b"><em>"What's one prompt that changed everything for you?"</em></li>
+      <li class="purple-b"><em>"What did AI get wrong that you had to fix?"</em></li>
+      <li class="purple-b"><em>"Play your voice intro or music for the room"</em> — at least one audio showcase</li>
+    </ul>
+  </div>
+</div>
+<aside class="notes">
+Verbal voting works fine — hands up. Or pass out sticky notes if you have them. Feedback should be kind and specific: "I liked the hero because..." not just "it looks good."
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 30 — Gallery Voting
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-content">
+  <h1>Vote</h1>
+  <div class="rule rule-purple"></div>
+  <div class="body">
+    <div style="display:flex; flex-direction:column; gap:1rem;">
+      <div class="vote-card" style="display:flex; align-items:center; gap:1.2rem; text-align:left;">
+        <div class="icon" style="font-size:2rem; flex-shrink:0;">⭐</div>
+        <div><h3 style="color:var(--gold); margin-bottom:0.2rem;">Best Design</h3><p>Most visually striking or cohesive site</p></div>
+      </div>
+      <div class="vote-card" style="display:flex; align-items:center; gap:1.2rem; text-align:left;">
+        <div class="icon" style="font-size:2rem; flex-shrink:0;">📈</div>
+        <div><h3 style="color:var(--green); margin-bottom:0.2rem;">Most Improved</h3><p>Biggest transformation from first draft</p></div>
+      </div>
+      <div class="vote-card" style="display:flex; align-items:center; gap:1.2rem; text-align:left;">
+        <div class="icon" style="font-size:2rem; flex-shrink:0;">⚡</div>
+        <div><h3 style="color:var(--purple); margin-bottom:0.2rem;">Boldest Idea</h3><p>Most creative or unexpected concept</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<aside class="notes">
+Verbal voting works fine — hands up. Or pass out sticky notes if you have them.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 31 — Session 2 Milestone
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-milestone">
+  <div class="check-icon">✅</div>
+  <h1>Session 2 Complete</h1>
+  <p class="sub" style="margin-bottom:1.6rem;">You just learned to direct AI, not just use it.</p>
+  <div class="recap">
+    <div class="recap-item">Iteration loop mastered — you know how to refine, not just generate</div>
+    <div class="recap-item">Cloudinary assets integrated — real images and audio on your site</div>
+    <div class="recap-item">Voice and music added — you scored and narrated a website</div>
+    <div class="recap-item">Community feedback received — you know what's working</div>
+  </div>
+  <p style="font-size:0.85rem; color:var(--muted); margin-top:1.8rem;">45-minute break · Final session starts shortly</p>
+</div>
+<aside class="notes">
+Acknowledge the energy in the room — students should feel genuinely proud at this point. The audio moments usually change the mood entirely. Let it land before rushing to the break.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 31 — Session 3 Divider
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-divider">
+  <div class="ghost-num">03</div>
+  <div class="inner green">
+    <p class="session-label">Session 3 · 1 hour</p>
+    <h1 class="green">"I Shipped It"</h1>
+    <p class="sub">Polish · Publish · Present</p>
+  </div>
+</div>
+<aside class="notes">
+Final stretch. Keep energy high — the finish line is visible. "One hour left. We leave this room with live URLs and presentations done."
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 32 — Part 1 Sub-header: Final Polish
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-sub">
+  <div class="inner">
+    <p class="part-label">Session 3 · Part 1</p>
+    <h1 style="color:var(--green);">Final Polish</h1>
+    <span class="pill pill-green">15 minutes</span>
+    <p style="font-size:1rem; color:var(--muted); margin-top:0.8rem;">Pick your top 2 remaining fixes. Stay focused — this is not open-ended.</p>
+  </div>
+</div>
+<aside class="notes">
+Ask each student: "What is the one thing that would make you proud to show this to someone?" That's the thing to fix. Not ten things — one.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 33 — Polish Checklist
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-content">
+  <h1>Polish Checklist</h1>
+  <div class="rule rule-green"></div>
+  <div class="body">
+    <div class="polish-grid">
+      <div class="polish-item">
+        <div class="check-box"></div>
+        <span>Headline is <strong>clear and specific</strong> — a stranger would understand it in 3 seconds</span>
+      </div>
+      <div class="polish-item">
+        <div class="check-box"></div>
+        <span>At least <strong>one real image</strong> — not a placeholder</span>
+      </div>
+      <div class="polish-item">
+        <div class="check-box"></div>
+        <span>Page <strong>title and meta description</strong> set — use Claude: <em>"Write a compelling page title and meta description for my site about [project]"</em></span>
+      </div>
+      <div class="polish-item">
+        <div class="check-box"></div>
+        <span>Preview on <strong>mobile</strong> — check for anything obviously broken</span>
+      </div>
+    </div>
+  </div>
+</div>
+<aside class="notes">
+Read through the list together as a class. Students check off on their own. Three solid items beats a rushed six.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 34 — Part 2 Sub-header: Publishing
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-sub">
+  <div class="inner">
+    <p class="part-label">Session 3 · Part 2</p>
+    <h1 style="color:var(--green);">Publishing</h1>
+    <p style="font-size:1rem; color:var(--muted); margin-top:0.8rem;">Walk through the Google AI Studio publishing flow together as a group.</p>
+  </div>
+</div>
+<aside class="notes">
+Pre-test this end-to-end before the day. Know where the friction points are and have a fallback ready. If publishing fails for anyone, a shareable preview link or exported screenshot is a valid artifact — the work is real regardless of the URL.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 35 — Publishing Steps
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-content">
+  <h1>Publishing Your Site</h1>
+  <div class="rule rule-green"></div>
+  <div class="body">
+    <ol class="nlist green">
+      <li>In Google AI Studio, click <strong>Publish</strong> in the top-right corner</li>
+      <li>Review the publishing options — select <strong>Public link</strong></li>
+      <li>Click <strong>Select a Cloud Project</strong> (you can use the shared class project)</li>
+      <li>Click <strong>Publish</strong> and wait for the URL to generate</li>
+      <li>Copy your live URL — paste it into the <strong>shared class document</strong></li>
+      <li>Open your URL in a new tab to confirm it loads correctly</li>
+    </ol>
+    <div style="background:var(--green-dim); border-left:3px solid var(--green); border-radius:0 var(--r-sm) var(--r-sm) 0; padding:0.8rem 1rem; margin-top:1rem; font-size:0.88rem; color:var(--text);">
+      <strong style="color:var(--green);">If publishing fails:</strong> A shareable preview link or screenshot is a valid artifact. The work is real — the URL is just delivery.
+    </div>
+  </div>
+</div>
+<aside class="notes">
+Have the shared class document open on the projector. Students paste their URL as it goes live — creates a real-time reveal moment. Watch for errors and troubleshoot out loud so the room learns from each fix.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 36 — Part 3 Sub-header: Demo Time
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-sub">
+  <div class="inner">
+    <p class="part-label">Session 3 · Part 3</p>
+    <h1 style="color:var(--purple);">Demo Time</h1>
+    <span class="pill pill-purple">20 minutes</span>
+    <p style="font-size:1rem; color:var(--muted); margin-top:0.8rem;">8 students × ~2.5 minutes each. No slides — just the live site and honest reflection.</p>
+  </div>
+</div>
+<aside class="notes">
+Strict timing. Use a visible countdown timer. Tell presenters to open their live URL before they're called. Format: show the site, say one sentence about what it is, share the one prompt that changed everything.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 37 — Your 2.5 Minutes (leave up during demos)
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-activity">
+  <h1>Your 2.5 Minutes</h1>
+  <div class="rule rule-purple"></div>
+  <div class="body">
+    <div class="presenter-prompts">
+      <div class="presenter-item">
+        <span class="p-num">1</span>
+        <span class="p-text">"This is <em>[site name]</em> and it's for <em>[who / what it's about]</em>..."</span>
+      </div>
+      <div class="presenter-item">
+        <span class="p-num">2</span>
+        <span class="p-text">"The one prompt that made the biggest difference was <em>[show or describe it]</em>..."</span>
+      </div>
+      <div class="presenter-item">
+        <span class="p-num">3</span>
+        <span class="p-text">"Here's what broke — and what I'd try next <em>[or how I fixed it]</em>..."</span>
+      </div>
+    </div>
+  </div>
+</div>
+<aside class="notes">
+Leave this slide up during all the presentations — it keeps presenters on track without the instructor needing to intervene. The third prompt is important: normalise that things broke. It always happens and it's always instructive.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 38 — Part 4 Sub-header: Debrief
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-sub">
+  <div class="inner">
+    <p class="part-label">Session 3 · Part 4</p>
+    <h1 style="color:var(--green);">What's Next</h1>
+  </div>
+</div>
+<aside class="notes">
+Deliberately decelerate here. Lower your voice slightly. The day has been high-energy — this is the moment to help students integrate what they learned.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 39 — What AI is Good At vs. What Still Needs You
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-content">
+  <h1>What AI Is Good At — and What Still Needs You</h1>
+  <div class="rule rule-green"></div>
+  <div class="body">
+    <div class="good-at">
+      <div class="col ai-col">
+        <div class="col-label">AI is genuinely great at</div>
+        <ul class="items">
+          <li>Speed — a functional layout in minutes</li>
+          <li>Structure — sections, hierarchy, flow</li>
+          <li>Options — generate 3 versions and pick the best</li>
+          <li>Fixing itself — ask it to correct what it got wrong</li>
+        </ul>
+      </div>
+      <div class="col you-col">
+        <div class="col-label">What still needs you</div>
+        <ul class="items">
+          <li>Your actual story, voice, and content</li>
+          <li>Judgment about what looks right</li>
+          <li>Real photos, real testimonials, real specifics</li>
+          <li>Caring about the outcome</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<aside class="notes">
+The right column is why they still have a job — say that clearly and warmly. "AI can draft everything. Only you know what's true, what sounds like you, and what actually matters to your audience."
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 40 — Where to Go Next
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-content">
+  <h1>Where to Go Next</h1>
+  <div class="rule rule-green"></div>
+  <div class="body">
+    <div class="next-paths">
+      <div class="next-card gold">
+        <div class="icon">🔨</div>
+        <h3>Build More</h3>
+        <p>Deeper audio: ElevenLabs for voice customisation, Suno for music styles.<br><br>
+        Video: Kling AI or Veo 3 for a short background or intro clip.<br><br>
+        More complex sites: Lovable or v0 for app features and interactivity.</p>
+      </div>
+      <div class="next-card purple">
+        <div class="icon">📚</div>
+        <h3>Learn More</h3>
+        <p>Experiment with Claude, ChatGPT, and Gemini side by side — they have different strengths.<br><br>
+        Notice what prompts work and why. Your intuition improves fast.</p>
+      </div>
+      <div class="next-card green">
+        <div class="icon">🤝</div>
+        <h3>Stay Connected</h3>
+        <p>Join the Tekwetu WhatsApp community — share what you build, ask questions, learn from others who are figuring this out alongside you.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<aside class="notes">
+Don't overwhelm — three paths is enough. Students can always ask for more recommendations one-on-one. The community card should link to wherever Tekwetu's ongoing community actually lives (Discord, WhatsApp, etc.) — update before delivering.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 41 — Certificate Moment
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e" data-hide-logo="true">
+<div class="s-cert">
+  <div class="logo">
+    <svg width="100" height="70" viewBox="0 0 190 130" xmlns="http://www.w3.org/2000/svg" aria-label="Tekwetu">
+      <circle cx="95" cy="65" r="60" fill="#CC9933" opacity="0.9"/>
+      <circle cx="125" cy="65" r="60" fill="#50C878" opacity="0.6"/>
+      <circle cx="65" cy="65" r="60" fill="#9B59B6" opacity="0.6"/>
+      <path d="M60 55 L60 95 M130 55 L130 95" stroke="white" stroke-width="6.5" fill="none"/>
+      <path d="M95 30 L95 100" stroke="white" stroke-width="13" fill="none"/>
+      <path d="M60 40 Q95 30 130 40" stroke="white" stroke-width="13" fill="none"/>
+      <path d="M60 65 L130 65" stroke="white" stroke-width="6.5" fill="none"/>
+    </svg>
+  </div>
+  <h1>You built something real today.</h1>
+  <p class="cert-label">Certificate of Completion</p>
+  <p class="cert-name">Getting Comfortable Using AI &nbsp;·&nbsp; Tekwetu &nbsp;·&nbsp; March 2026</p>
+</div>
+<aside class="notes">
+This is the emotional close. Pause for applause — don't rush past this moment. Take a group photo if the group is comfortable. Walk through the digital badge and certificate process. Students who completed all 3 sessions, made at least 7 refinements (including one audio output), submitted a published site or screenshot, presented their work, and gave peer feedback during the gallery earn their credential.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 42 — Tools Reference
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-table">
+  <h1>Tools Reference</h1>
+  <div class="rule"></div>
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>Purpose</th>
+          <th>Primary Tool</th>
+          <th>Alternative</th>
+          <th>Free?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>App / site generation</td>
+          <td class="tool-cell">Google AI Studio</td>
+          <td>Lovable, v0</td>
+          <td class="free-cell">Yes (limited)</td>
+        </tr>
+        <tr>
+          <td>AI assistant &amp; copywriting</td>
+          <td class="tool-cell">Claude</td>
+          <td>ChatGPT</td>
+          <td class="free-cell">Yes</td>
+        </tr>
+        <tr>
+          <td>Image generation</td>
+          <td class="tool-cell">Gemini</td>
+          <td>ChatGPT</td>
+          <td class="free-cell">Yes</td>
+        </tr>
+        <tr>
+          <td>Voice narration</td>
+          <td class="tool-cell">Gemini TTS</td>
+          <td>ElevenLabs</td>
+          <td class="free-cell">Yes (limited)</td>
+        </tr>
+        <tr>
+          <td>Music generation</td>
+          <td class="tool-cell">Gemini</td>
+          <td>Suno</td>
+          <td class="free-cell">Yes (limited)</td>
+        </tr>
+        <tr>
+          <td>Asset hosting (images, audio)</td>
+          <td class="tool-cell">Cloudinary</td>
+          <td>Imgur, Google Drive</td>
+          <td class="free-cell">Yes (25GB free)</td>
+        </tr>
+        <tr>
+          <td>Video (bonus)</td>
+          <td class="tool-cell">Kling AI</td>
+          <td>Veo 3</td>
+          <td class="free-cell">Yes (limited)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<aside class="notes">
+Reference slide — leave it up during breaks. No need to present it formally. Students can photograph the screen or access it from the shared course document.
+</aside>
+</section>
+
+
+</div><!-- .slides -->
+
+<div class="logo-overlay" id="logo-overlay">
+  <svg width="44" height="30" viewBox="0 0 190 130" xmlns="http://www.w3.org/2000/svg" aria-label="Tekwetu">
+    <circle cx="95" cy="65" r="60" fill="#CC9933" opacity="0.9"/>
+    <circle cx="125" cy="65" r="60" fill="#50C878" opacity="0.6"/>
+    <circle cx="65" cy="65" r="60" fill="#9B59B6" opacity="0.6"/>
+    <path d="M60 55 L60 95 M130 55 L130 95" stroke="white" stroke-width="6.5" fill="none"/>
+    <path d="M95 30 L95 100" stroke="white" stroke-width="13" fill="none"/>
+    <path d="M60 40 Q95 30 130 40" stroke="white" stroke-width="13" fill="none"/>
+    <path d="M60 65 L130 65" stroke="white" stroke-width="6.5" fill="none"/>
+  </svg>
+</div>
+
+</div><!-- .reveal -->
+
+<script type="module">
+  import Reveal from 'https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.esm.js';
+  import RevealNotes from 'https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.esm.js';
+
+  const logoOverlay = document.getElementById('logo-overlay');
+
+  function updateLogo(slide) {
+    if (slide && slide.dataset.hideLogo === 'true') {
+      logoOverlay.classList.add('hidden');
+    } else {
+      logoOverlay.classList.remove('hidden');
+    }
+  }
+
+  Reveal.on('ready',       e => updateLogo(e.currentSlide));
+  Reveal.on('slidechanged', e => updateLogo(e.currentSlide));
+
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    minScale: 0.2,
+    maxScale: 2.0,
+
+    controls: true,
+    controlsLayout: 'bottom-right',
+    controlsTutorial: false,
+    progress: true,
+    slideNumber: 'c/t',
+    showSlideNumber: 'all',
+
+    history: true,
+    keyboard: true,
+    overview: true,
+    center: false,
+
+    transition: 'fade',
+    transitionSpeed: 'fast',
+    backgroundTransition: 'fade',
+
+    touch: true,
+
+    pdfMaxPagesPerSlide: 1,
+    pdfSeparateFragments: false,
+
+    plugins: [RevealNotes]
+  });
+</script>
+</body>
+</html>
