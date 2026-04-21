@@ -1,19 +1,27 @@
 <!DOCTYPE html>
-<script>
-  (function() {
-    var pwd = sessionStorage.getItem('deck_auth');
-    if (pwd !== 'tekwetu2026') {
-      pwd = prompt('Enter password to view this deck:');
-      if (pwd !== 'tekwetu2026') {
-        document.write('<h2 style="font-family:sans-serif;text-align:center;margin-top:20vh">Incorrect password.</h2>');
-        throw new Error('auth');
-      }
-      sessionStorage.setItem('deck_auth', pwd);
-    }
-  })();
-</script>
 <html lang="en">
 <head>
+  <!-- Auth guard: hide everything until password is verified -->
+  <style id="auth-hide">html { visibility: hidden; }</style>
+  <script>
+    (function() {
+      function deny() {
+        document.addEventListener('DOMContentLoaded', function() {
+          document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;color:#555;background:#1a1a2e;font-size:1rem;margin:0;">Access denied.</div>';
+          document.getElementById('auth-hide').remove();
+        });
+      }
+      var pwd = sessionStorage.getItem('deck_auth');
+      if (pwd !== 'tekwetu2026') {
+        pwd = prompt('Enter password to view this deck:');
+        if (pwd !== 'tekwetu2026') { deny(); return; }
+        sessionStorage.setItem('deck_auth', pwd);
+      }
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('auth-hide').remove();
+      });
+    })();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Getting Comfortable Using AI — Tekwetu · March 2026</title>
