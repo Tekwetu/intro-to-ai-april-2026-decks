@@ -1643,6 +1643,53 @@ Open the site from Session 1. Students should be watching — not building yet. 
 
 
 <!-- ═══════════════════════════════════════════════════════════════
+     SLIDE — Cloudinary Account Setup
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div class="s-content">
+  <h1>Create Your Cloudinary Account</h1>
+  <div class="rule rule-purple"></div>
+  <div class="body" style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem 2.5rem; align-items:start; align-content:start;">
+    <div>
+      <ol class="nlist purple">
+        <li>Go to <strong>cloudinary.com</strong> — click <strong>Sign Up Free</strong></li>
+        <li>Create an account with your email (or Google)</li>
+        <li>Confirm your email if prompted</li>
+        <li>You'll land on your Media Library — you're ready</li>
+      </ol>
+      <div style="margin-top:1rem; background:var(--bg-alt); border-radius:var(--r-sm); padding:0.8rem 1rem; font-size:0.85rem; color:var(--muted);">
+        ⏱ Takes about <strong style="color:var(--purple);">2 minutes.</strong> Do this now while the instructor demos.
+      </div>
+    </div>
+    <!-- Workflow diagram -->
+    <div style="display:flex; flex-direction:column; gap:0.6rem;">
+      <p style="font-size:0.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin:0 0 0.2rem;">How it fits together</p>
+      <div style="display:flex; flex-direction:column; gap:0.5rem;">
+        <div style="background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.3); border-radius:10px; padding:0.7rem 1rem; display:flex; align-items:center; gap:0.8rem;">
+          <span style="font-size:1.3rem;">🤖</span>
+          <div><div style="font-size:0.85rem; font-weight:700; color:var(--text);">AI Studio</div><div style="font-size:0.72rem; color:var(--muted);">Generate image, audio, or music</div></div>
+        </div>
+        <div style="text-align:center; color:var(--purple); font-size:1rem; line-height:1;">↓</div>
+        <div style="background:rgba(139,92,246,0.2); border:2px solid var(--purple); border-radius:10px; padding:0.7rem 1rem; display:flex; align-items:center; gap:0.8rem;">
+          <span style="font-size:1.3rem;">☁️</span>
+          <div><div style="font-size:0.85rem; font-weight:700; color:var(--purple);">Cloudinary</div><div style="font-size:0.72rem; color:var(--muted);">Upload asset → copy its URL</div></div>
+        </div>
+        <div style="text-align:center; color:var(--purple); font-size:1rem; line-height:1;">↓</div>
+        <div style="background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.3); border-radius:10px; padding:0.7rem 1rem; display:flex; align-items:center; gap:0.8rem;">
+          <span style="font-size:1.3rem;">🌐</span>
+          <div><div style="font-size:0.85rem; font-weight:700; color:var(--text);">Your Website</div><div style="font-size:0.72rem; color:var(--muted);">Paste URL into your AI prompt</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<aside class="notes">
+Give students 2 minutes to create accounts while you set up for the demo. Anticipate login issues — have a shared backup Cloudinary account on a sticky note at each table. This is the account they'll use for all image and audio work today.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
      SLIDE 22 — Key Message: Creative Director
      ═══════════════════════════════════════════════════════════════ -->
 <section data-background-color="#1a1a2e">
@@ -1653,15 +1700,19 @@ Open the site from Session 1. Students should be watching — not building yet. 
   </div>
 </div>
 <aside class="notes">
-Walk through these 4 refinements live — show the prompt you type, then show the result each time:
-1. "Make the hero section full-width with a single bold headline. Remove the subtitle."
-2. "Change the colour palette to deep navy and warm white. No gradients."
-3. "Rewrite the about section in first person. Make it sound like a real human, not a brochure."
-4. Use Gemini TTS to generate a short spoken intro → play it for the room.
-  
-The audio moment (step 4) usually surprises the room. Let it land: "You just recorded a voice intro. Without a studio." Keep total time under 20 minutes.
-  
-This reframe shifts students from "user of a tool" to "director of a team." Ask: "What would you tell a production team if you were the creative director of your site right now?" Let a few students answer.
+Instructor demo — ~30 minutes total. Walk through this sequence live:
+
+1. Open your site from Session 1.
+2. Make 2–3 prompt refinements (headline, colour, about section copy).
+3. Go to Gemini → generate a custom image for your site.
+4. Download it → upload to Cloudinary → copy the URL.
+5. Back in AI Studio: paste the URL into a prompt — "Replace the hero image with this: [URL]"
+6. Show the result live. Let it land.
+7. Now do the same with music or a voice intro — generate in Gemini, upload to Cloudinary, embed.
+
+Then hand it to students: "Now you try. Generate an image in Gemini, upload it to Cloudinary, and add it to your site." Give them ~5 minutes before opening the full Deep Iteration Workshop.
+
+Keep total demo time to 30 minutes. The room will naturally follow your energy — if you're excited about the image swap, they will be too.
 </aside>
 </section>
 
@@ -1674,8 +1725,8 @@ This reframe shifts students from "user of a tool" to "director of a team." Ask:
   <div class="inner">
     <p class="part-label">Session 2 · Part 2</p>
     <h1 style="color:var(--purple);">Deep Iteration Workshop</h1>
-    <span class="pill pill-purple">90 minutes · Individual work</span>
-    <p style="font-size:1rem; color:var(--muted); margin-top:0.8rem;">Work through the 7-Refinement Card on your real project. We start with Cloudinary setup.</p>
+    <span class="pill pill-purple">60 minutes · Individual work</span>
+    <p style="font-size:1rem; color:var(--muted); margin-top:0.8rem;">Work through the 7-Refinement Card on your real project.</p>
   </div>
 </div>
 <aside class="notes">
@@ -1685,15 +1736,15 @@ This is the longest block. Students will refine their own site through 7 structu
 
 
 <!-- ═══════════════════════════════════════════════════════════════
-     SLIDE 24 — Cloudinary Setup
+     SLIDE 24 — Cloudinary Workflow
      ═══════════════════════════════════════════════════════════════ -->
 <section data-background-color="#1a1a2e">
 <div class="s-content">
-  <h1>Cloudinary Setup</h1>
+  <h1>Cloudinary Workflow</h1>
   <div class="rule rule-purple"></div>
   <div class="body">
     <ol class="nlist purple">
-      <li>Go to <strong>cloudinary.com</strong> — create a free account</li>
+      <li>Go to <strong>cloudinary.com</strong> — create a free account (if needed)</li>
       <li>Click <strong>Upload</strong> → select any image from your laptop</li>
       <li>Once uploaded, click the image → <strong>Copy URL</strong></li>
       <li>That URL is what you paste into your AI prompt: <em>"Use this image: [URL]"</em></li>
@@ -1886,6 +1937,25 @@ Verbal voting works fine — hands up. Or pass out sticky notes if you have them
 </div>
 <aside class="notes">
 Verbal voting works fine — hands up. Or pass out sticky notes if you have them.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE — WhatsApp Community
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div style="height:720px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:3rem 5rem; box-sizing:border-box;">
+  <div style="font-size:2.2rem; margin-bottom:0.8rem;">💬</div>
+  <h1 style="font-size:2rem; font-weight:900; color:var(--green); margin-bottom:0.4rem;">Share Your Work</h1>
+  <div style="width:56px; height:3px; background:var(--green); border-radius:2px; margin:0 auto 1.2rem;"></div>
+  <p style="font-size:1rem; color:var(--text); max-width:520px; line-height:1.7; margin-bottom:0.6rem;">You just made something real. Share it with the group.</p>
+  <p style="font-size:0.9rem; color:var(--muted); max-width:480px; line-height:1.6; margin-bottom:1.6rem;">Post a screenshot of your site in the Tekwetu WhatsApp community — celebrate what your peers built, ask questions, keep the momentum going between sessions.</p>
+  <img src="images/whatsapp_qr_code.png" alt="WhatsApp group QR code" style="width:150px; height:150px; border-radius:8px; margin-bottom:0.6rem;">
+  <p style="font-size:0.75rem; color:var(--muted);">Scan to join the Tekwetu WhatsApp community</p>
+</div>
+<aside class="notes">
+Leave this slide up while students wind down. Encourage at least 2–3 people to post a screenshot before they leave the room. It sets the tone for the group between sessions and builds accountability for Session 3.
 </aside>
 </section>
 
