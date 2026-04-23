@@ -1742,9 +1742,8 @@ This is the longest block. Students will refine their own site through 7 structu
 <div class="s-content">
   <h1>Cloudinary Workflow</h1>
   <div class="rule rule-purple"></div>
-  <div class="body">
+  <div class="body" style="justify-content:center;">
     <ol class="nlist purple">
-      <li>Go to <strong>cloudinary.com</strong> — create a free account (if needed)</li>
       <li>Click <strong>Upload</strong> → select any image from your laptop</li>
       <li>Once uploaded, click the image → <strong>Copy URL</strong></li>
       <li>That URL is what you paste into your AI prompt: <em>"Use this image: [URL]"</em></li>
@@ -1757,6 +1756,77 @@ This is the longest block. Students will refine their own site through 7 structu
 </div>
 <aside class="notes">
 Anticipate login issues. Have a shared backup Cloudinary account pre-loaded on a sticky note at each table. Walk through this step slowly — once students understand the upload → copy URL → paste flow, the rest of the image and audio steps become easy.
+</aside>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE — Cloudinary Workflow: Visual Walkthrough
+     ═══════════════════════════════════════════════════════════════ -->
+<section data-background-color="#1a1a2e">
+<div style="height:720px; display:flex; flex-direction:column; padding:1.8rem 2.8rem 1.4rem; box-sizing:border-box;">
+  <h1 style="font-size:1.6rem; font-weight:900; color:var(--gold); margin-bottom:0.3rem;">Cloudinary Workflow: In Action</h1>
+  <div style="width:56px; height:3px; background:var(--purple); border-radius:2px; margin-bottom:1rem;"></div>
+  <div style="display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr); gap:1.4rem; flex:1; min-height:0;">
+
+    <!-- Step 1 -->
+    <div style="background:rgba(255,255,255,0.04); border-radius:10px; overflow:hidden; display:flex; flex-direction:column;">
+      <div style="background:rgba(139,92,246,0.2); padding:0.35rem 0.7rem; display:flex; align-items:center; gap:0.4rem; flex-shrink:0;">
+        <span style="background:var(--purple); color:white; font-size:0.65rem; font-weight:700; border-radius:50%; width:16px; height:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</span>
+        <span style="font-size:0.7rem; color:var(--text); font-weight:600;">Download from Gemini</span>
+      </div>
+      <img src="images/assets-1-gemini-download.png" alt="Download from Gemini" style="width:100%; flex:1; min-height:0; object-fit:contain; object-position:center; background:#0d0d1f; padding:0.3rem 0.6rem; box-sizing:border-box;">
+    </div>
+
+    <!-- Step 2 -->
+    <div style="background:rgba(255,255,255,0.04); border-radius:10px; overflow:hidden; display:flex; flex-direction:column;">
+      <div style="background:rgba(139,92,246,0.2); padding:0.35rem 0.7rem; display:flex; align-items:center; gap:0.4rem; flex-shrink:0;">
+        <span style="background:var(--purple); color:white; font-size:0.65rem; font-weight:700; border-radius:50%; width:16px; height:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</span>
+        <span style="font-size:0.7rem; color:var(--text); font-weight:600;">Open Cloudinary → Upload</span>
+      </div>
+      <img src="images/assets-2-cloudinary-upload-1.png" alt="Cloudinary upload button" style="width:100%; flex:1; min-height:0; object-fit:contain; object-position:center; background:#0d0d1f; padding:0.3rem 0.6rem; box-sizing:border-box;">
+    </div>
+
+    <!-- Step 3 -->
+    <div style="background:rgba(255,255,255,0.04); border-radius:10px; overflow:hidden; display:flex; flex-direction:column;">
+      <div style="background:rgba(139,92,246,0.2); padding:0.35rem 0.7rem; display:flex; align-items:center; gap:0.4rem; flex-shrink:0;">
+        <span style="background:var(--purple); color:white; font-size:0.65rem; font-weight:700; border-radius:50%; width:16px; height:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">3</span>
+        <span style="font-size:0.7rem; color:var(--text); font-weight:600;">Browse &amp; select your file</span>
+      </div>
+      <img src="images/assets-3-cloudinary-upload-2.png" alt="Cloudinary drag and drop" style="width:100%; flex:1; min-height:0; object-fit:contain; object-position:center; background:#0d0d1f; padding:0.3rem 0.6rem; box-sizing:border-box;">
+    </div>
+
+    <!-- Step 4 -->
+    <div style="background:rgba(255,255,255,0.04); border-radius:10px; overflow:hidden; display:flex; flex-direction:column;">
+      <div style="background:rgba(139,92,246,0.2); padding:0.35rem 0.7rem; display:flex; align-items:center; gap:0.4rem; flex-shrink:0;">
+        <span style="background:var(--purple); color:white; font-size:0.65rem; font-weight:700; border-radius:50%; width:16px; height:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">4</span>
+        <span style="font-size:0.7rem; color:var(--text); font-weight:600;">Image appears in your library</span>
+      </div>
+      <img src="images/assets-4-cloudinary-upload-3.png" alt="Image in Cloudinary library" style="width:100%; flex:1; min-height:0; object-fit:contain; object-position:center; background:#0d0d1f; padding:0.3rem 0.6rem; box-sizing:border-box;">
+    </div>
+
+    <!-- Step 5 -->
+    <div style="background:rgba(255,255,255,0.04); border-radius:10px; overflow:hidden; display:flex; flex-direction:column;">
+      <div style="background:rgba(139,92,246,0.2); padding:0.35rem 0.7rem; display:flex; align-items:center; gap:0.4rem; flex-shrink:0;">
+        <span style="background:var(--purple); color:white; font-size:0.65rem; font-weight:700; border-radius:50%; width:16px; height:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">5</span>
+        <span style="font-size:0.7rem; color:var(--text); font-weight:600;">Right-click → Copy URL</span>
+      </div>
+      <img src="images/assets-5-cloudinary-get-link.png" alt="Copy URL from Cloudinary" style="width:100%; flex:1; min-height:0; object-fit:contain; object-position:center; background:#0d0d1f; padding:0.3rem 0.6rem; box-sizing:border-box;">
+    </div>
+
+    <!-- Step 6 -->
+    <div style="background:rgba(255,255,255,0.04); border-radius:10px; overflow:hidden; display:flex; flex-direction:column;">
+      <div style="background:rgba(139,92,246,0.2); padding:0.35rem 0.7rem; display:flex; align-items:center; gap:0.4rem; flex-shrink:0;">
+        <span style="background:var(--purple); color:white; font-size:0.65rem; font-weight:700; border-radius:50%; width:16px; height:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">6</span>
+        <span style="font-size:0.7rem; color:var(--text); font-weight:600;">Paste URL into AI Studio prompt</span>
+      </div>
+      <img src="images/assets-6-aistudio-use-link.png" alt="Use URL in AI Studio" style="width:100%; flex:1; min-height:0; object-fit:contain; object-position:center; background:#0d0d1f; padding:0.3rem 0.6rem; box-sizing:border-box;">
+    </div>
+
+  </div>
+</div>
+<aside class="notes">
+Walk through this slide slowly — point at each step as you do it live. Students can follow along on their own screen. The key moment is step 5→6: once they see that a URL is all AI Studio needs to pull in any image, the whole system clicks.
 </aside>
 </section>
 
@@ -1839,7 +1909,6 @@ Facilitator cues:
   <div class="body" style="gap:1rem; justify-content:center;">
     <p style="font-size:0.9rem; color:var(--muted); margin-bottom:0.4rem;">Paste any of these into your AI chat to get unstuck:</p>
     <div class="rescue">
-      <div class="rescue-item">"Explain what this code does in plain English."</div>
       <div class="rescue-item">"What would make this page look more professional? Give me 3 specific suggestions."</div>
       <div class="rescue-item">"Give me 3 alternative versions of this headline. Keep them short and direct."</div>
       <div class="rescue-item">"Something looks broken. Here's what I see: [describe it]. What could be causing this and how do I fix it?"</div>
